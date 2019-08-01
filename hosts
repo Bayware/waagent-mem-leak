@@ -1,2 +1,2 @@
-azure_node ansible_host=13.64.171.113
+azure_node ansible_host=168.62.29.119 repo_key_id='get-from-bayware' repo_secret_key='get-from-bayware'
 

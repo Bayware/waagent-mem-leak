@@ -4,9 +4,6 @@
   hosts: azure_node
   gather_facts: False
   become: True
-  vars:
-    repo_key_id: "{{ repo_key_id }}"
-    repo_secret_key: "{{ repo_secret_key }}"
   tasks:
     - name: Start Memory Leak | Repo Config S3
       template:
