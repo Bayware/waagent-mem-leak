@@ -21,7 +21,7 @@ VM.
 
 ## Run Ansible
 
-You will a key to access to the repository that has Bayware ib-agent.
+You will require a key to access the repository that contains Bayware ib-agent.
 
 ```
 ]$ ansible-playbook -e repo_key_id="<from-Bayware>" -e repo_secret_key="<from-Bayware>" start-leak.yml
