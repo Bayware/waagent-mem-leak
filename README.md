@@ -21,8 +21,10 @@ VM.
 
 ## Run Ansible
 
+You will a key to access to the repository that has Bayware ib-agent.
+
 ```
-]$ ansible-playbook start-leak.yml
+]$ ansible-playbook -e repo_key_id="<from-Bayware>" -e repo_secret_key="<from-Bayware>" start-leak.yml
 ```
 
 ## Check VM Memory

@@ -5,8 +5,8 @@
   gather_facts: False
   become: True
   vars:
-    repo_key_id: "AKIAXENPO3YJFNAYIGFL"
-    repo_secret_key: "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"
+    repo_key_id: "{{ repo_key_id }}"
+    repo_secret_key: "{{ repo_secret_key }}"
   tasks:
     - name: Start Memory Leak | Repo Config S3
       template:
