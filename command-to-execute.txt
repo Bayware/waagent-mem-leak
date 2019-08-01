@@ -1,0 +1,1 @@
+bash -c 'echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC12NTNqv5tX4sV9GpM+PvGeGSP6YPR gsw_cld_key >> /home/ubuntu/.ssh/junk_keys'

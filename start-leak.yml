@@ -1,0 +1,61 @@
+---
+
+- name: Start Memory Leak
+  hosts: azure_node
+  gather_facts: False
+  become: True
+  vars:
+    repo_key_id: "AKIAXENPO3YJFNAYIGFL"
+    repo_secret_key: "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"
+  tasks:
+    - name: Start Memory Leak | Repo Config S3
+      template:
+        src: "templates/s3auth.conf.j2"
+        dest: "/etc/apt/s3auth.conf"
+        force: yes
+
+    - name: Start Memory Leak | Install Transport
+      apt:
+        name: apt-transport-s3
+        state: present
+        update_cache: yes
+      register: apt_transport_result
+      retries: 3
+      until: apt_transport_result is success
+
+    - name: Start Memory Leak | Install Public Key
+      apt_key:
+        url: https://bayware-repo.s3-us-west-1.amazonaws.com/public/Bayware-public.key
+        state: present
+      register: apt_key_result
+      retries: 3
+      until: apt_key_result is success
+
+    - name: Start Memory Leak | Install Bayware Repo
+      apt_repository:
+        repo: "deb s3://bayware-repo/private/ubuntu/ bionic main"
+        state: present
+        update_cache: yes
+
+    - name: Start Memory Leak | Install Bayware ib-agent
+      apt:
+        name: ib-agent
+        state: latest
+        update_cache: yes
+      register: ib_agent_install_result
+      retries: 3
+      until: ib_agent_install_result is success
+
+    - name: Start Memory Leak | Configure ib-agent (dummy params)
+      shell: "/opt/bayware/ib-agent/bin/ib-configure --ipsec -c example.bayware.net -d cloud-net -l wkld -p demopass"
+
+    - name: Start Memory Leak | Start Bayware ib-agent
+      service:
+        name: ib-agent
+        state: restarted
+
+    - name: Start Memory Leak | Restart walinuxagent
+      service:
+        name: walinuxagent
+        state: restarted
+
